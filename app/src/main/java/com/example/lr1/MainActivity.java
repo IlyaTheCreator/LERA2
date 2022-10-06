@@ -1,6 +1,7 @@
 package com.example.lr1;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -44,29 +45,29 @@ public class MainActivity extends AppCompatActivity implements DialogCloseListen
 
         fab = findViewById(R.id.fab);
 
-        taskList = db.getAllTasks();
-        Collections.reverse(taskList);
-        tasksAdapter.setTasks(taskList);
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new RecyclerItemTouchHelper(tasksAdapter));
+        itemTouchHelper.attachToRecyclerView(tasksRecyclerView);
 
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                AddNewTask.newInstance().show(getSupportFragmentManager(), AddNewTask.TAG);
-            }
+//        taskList = db.getAllTasks();
+//        Collections.reverse(taskList);
+//        tasksAdapter.setTasks(taskList);
+
+        fab.setOnClickListener((v) -> {
+            AddNewTask.newInstance().show(getSupportFragmentManager(), AddNewTask.TAG);
         });
 
-//        ToDoModel task = new ToDoModel();
-//        task.setTask("This is a test from Iluha!");
-//        task.setStatus(0);
-//        task.setId(1);
-//
-////        taskList.add(task);
-////        taskList.add(task);
-////        taskList.add(task);
-////        taskList.add(task);
-////        taskList.add(task);
-////
-////        tasksAdapter.setTasks(taskList);
+        ToDoModel task = new ToDoModel();
+        task.setTask("This is a test from Iluha!");
+        task.setStatus(0);
+        task.setId(1);
+
+        taskList.add(task);
+        taskList.add(task);
+        taskList.add(task);
+        taskList.add(task);
+        taskList.add(task);
+
+        tasksAdapter.setTasks(taskList);
     }
 
     @Override
